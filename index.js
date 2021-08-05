@@ -1,4 +1,5 @@
 const requireDir = require('require-dir')
+const path = require('path')
 
 const setRouter = (router, routes) => {
   Object.keys(routes).forEach(routeName => {
@@ -26,7 +27,7 @@ const setRouter = (router, routes) => {
 }
 
 module.exports = (router, dirPath) => {
-  const routes = requireDir(module.parent.path + dirPath || '/', { recurse: true })
+  const routes = requireDir(path.join(module.parent.path, dirPath) || '/', { recurse: true })
 
   setRouter(router, routes)
 }
