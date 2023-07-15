@@ -6,18 +6,18 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 // margeParams: true がないと、親routerのparamsを子routerからアクセスできない
 
-const path = 'sample_desu/:shop' // path が無い場合フォルダ名がルート名になる
-// この場合で path がなかった時、フォルダ名である sample がルート名になる
-
+let indexPageHtmlCache = null;
 router.get('/', function(req, res, next) {
 
-  console.log(req.params)
+  // console.log(req.params)
   const { shop, sushi } = req.params
-  res.send(`
-    <span>
-      <h1>Index - Index</h1>
-    </span>
-  `)
+
+  if (indexPageHtmlCache) res.send(indexPageHtmlCache)
+  else res.render('index', { title: 'Index page!'}, (err, html) => {
+    console.log('store the html cache of this page')
+    indexPageHtmlCache = html
+    res.send(html)
+  })
 })
 
 module.exports = {

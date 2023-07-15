@@ -15,7 +15,6 @@ const setRouter = (router, routes) => {
     // paramは複数設定できる
     // 例）test_root[param1][param2]
     // -> test_root/:param1/:param2
-
     const regex = /\[([^\[\]]+)\]/g
     const params = routeName.match(regex)?.map(param => param.slice(1, -1))
 
